@@ -1,0 +1,59 @@
+#include "sys.h"
+#include "usart.h"		
+#include "delay.h"	
+#include "led.h"  
+#include "key.h"
+#include "timer.h"
+#include "motor.h"
+//ALIENTEK Mini STM32开发板范例代码8
+//PWM输出实验   
+//技术支持：www.openedv.com
+//广州市星翼电子科技有限公司
+
+int main(void)
+{			
+ 	u16 motor_pwm_val=0; 
+    u8 key_value=0;
+	u8 start_stop_flag=0;
+	Stm32_Clock_Init(9); //系统时钟设置
+	delay_init(72);	     //延时初始化
+	uart_init(72,9600);  //串口初始化 
+	MOTOR_Init();		 //初始化与MOTOR连接的硬件接口
+	KEY_Init();          //初始化按键的硬件接口
+   	while(1)
+	{
+       	key_value=KEY_Scan(0);		//得到键值
+		switch(key_value)
+		{				 
+			case KEY0_PRES:          //加速
+				motor_pwm_val+=10;
+				printf("\r\nmotor_pwm_val:%d\r\n",motor_pwm_val);
+				break;
+			case KEY1_PRES:           //减速
+				motor_pwm_val-=10;
+				printf("\r\nmotor_pwm_val:%d\r\n",motor_pwm_val);
+				break;
+			case WKUP_PRES:		      //启停		
+				start_stop_flag =!start_stop_flag; 
+			    printf("\r\nstart_stop_flag:%d\r\n",start_stop_flag);
+				break;
+			default:
+				delay_ms(10);
+                break;			
+		}
+		if(motor_pwm_val>200) {
+			motor_pwm_val =200;
+		}
+        else if(motor_pwm_val<50) {	
+			motor_pwm_val =50;
+		}
+		if(start_stop_flag==1) {
+//			MOTOR_PWM_VAL=motor_pwm_val;
+			SERVO_PWM_VAL=20000-(500+motor_pwm_val*7.8125);
+        }
+		else {
+//			MOTOR_PWM_VAL=0;
+			SERVO_PWM_VAL=0;
+		}			
+	} 
+}
