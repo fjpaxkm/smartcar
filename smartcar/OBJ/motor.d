@@ -1,0 +1,10 @@
+..\obj\motor.o: ..\HARDWARE\MOTOR\motor.c
+..\obj\motor.o: ..\SYSTEM\sys\sys.h
+..\obj\motor.o: ..\SYSTEM\sys\stm32f10x.h
+..\obj\motor.o: D:\software\keil510\ARM\PACK\ARM\CMSIS\3.20.4\CMSIS\Include\core_cm3.h
+..\obj\motor.o: D:\software\keil510\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\motor.o: D:\software\keil510\ARM\PACK\ARM\CMSIS\3.20.4\CMSIS\Include\core_cmInstr.h
+..\obj\motor.o: D:\software\keil510\ARM\PACK\ARM\CMSIS\3.20.4\CMSIS\Include\core_cmFunc.h
+..\obj\motor.o: ..\SYSTEM\sys\system_stm32f10x.h
+..\obj\motor.o: ..\HARDWARE\MOTOR\motor.h
+..\obj\motor.o: ..\HARDWARE\TIMER\timer.h
